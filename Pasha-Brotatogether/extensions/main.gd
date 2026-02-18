@@ -35,9 +35,9 @@ var client_pending_ids = {}
 var server_player_projectile_ids = {}
 var server_enemy_projectile_ids = {}
 
-const ENTITY_BIRTH_SCENE = preload("res://entities/birth/entity_birth.tscn")
-const TREE_SCENE = preload("res://entities/units/neutral/tree.tscn")
-const CLIENT_TURRET_STATS = preload("res://entities/structures/turret/turret_stats.tres")
+var ENTITY_BIRTH_SCENE = load("res://entities/birth/entity_birth.tscn")
+var TREE_SCENE = load("res://entities/units/neutral/tree.tscn")
+var CLIENT_TURRET_STATS = load("res://entities/structures/turret/turret_stats.tres")
 
 const ENABLE_DEBUG = true
 
@@ -443,7 +443,7 @@ func _update_player_position(player_dict : Dictionary, player_index : int) -> vo
 		
 		var things_to_process = _things_to_process_player_containers[player_index]
 		if player_dict[EntityState.ENTITY_STATE_PLAYER_NUM_UPGRADES] > things_to_process.upgrades._elements.size():
-			things_to_process.upgrades.add_element(ItemService.get_icon("icon_upgrade_to_process"), 1)
+			things_to_process.upgrades.add_element(ItemService.get_icon(Keys.icon_upgrade_to_process_hash), 1)
 
 
 func _dictionary_for_enemy(enemy) -> Dictionary:
@@ -768,7 +768,7 @@ func _update_consumables(consumables_array : Array) -> void:
 
 
 func _spawn_consumable(consumable_dict : Dictionary) -> void:
-	var consumable = get_node_from_pool(consumable_scene.resource_path)
+	var consumable = get_node_from_pool(_consumable_pool_id, _consumables_container)
 	if consumable == null:
 		consumable = consumable_scene.instance()
 		_consumables_container.add_child(consumable)

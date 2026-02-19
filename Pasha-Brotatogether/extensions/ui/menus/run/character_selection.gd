@@ -53,7 +53,7 @@ func _ready():
 	is_multiplayer_lobby = brotatogether_options.joining_multiplayer_lobby
 	
 	if is_multiplayer_lobby:
-		ProgressData.settings.coop_mode_toggled = true
+		RunData.is_coop_run = true
 		_coop_button.init()
 		_coop_button.hide()
 		var run_options_top_panel = _run_options_panel.get_node("MarginContainer/VBoxContainer/HBoxContainer")

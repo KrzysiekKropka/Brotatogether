@@ -483,6 +483,7 @@ func spawn_enemy(enemy_dict) -> void:
 	var enemy_id = enemy_dict["NETWORK_ID"]
 	
 	var enemy = load(filename).instance()
+	enemy._entity_spawner_ref = _entity_spawner
 	
 	var position : Vector2 = Vector2(enemy_dict["X_POS"], enemy_dict["Y_POS"])
 	enemy.position = position
@@ -1206,3 +1207,11 @@ func spawn_explosion(explosion_dict : Dictionary) -> void:
 	instance.call_deferred("start_explosion")
 	instance.set_deferred("scale", explosion_scale)
 	instance.set_deferred("global_position", Vector2(explosion_dict["X_POS"], explosion_dict["Y_POS"]))
+
+
+func add_node_to_pool(node: Node, id: int) -> void:
+	# TODO correct deal with the node and IDs to propagate optimizations
+	if _pool.has(id):
+		.add_node_to_pool(node, id)
+	else:
+		node.get_parent().remove_child(node)

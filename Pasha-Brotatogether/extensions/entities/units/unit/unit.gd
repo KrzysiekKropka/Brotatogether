@@ -79,7 +79,8 @@ func update_external_player_position(player_dict : Dictionary) -> void:
 	self._current_movement.x  = player_dict[EntityState.ENTITY_STATE_X_MOVE]
 	self._current_movement.y  = player_dict[EntityState.ENTITY_STATE_Y_MOVE]
 		
-	self.update_animation(_current_movement)
+	if not dead:
+		self.update_animation(_current_movement)
 
 
 func update_client_player(player_dict : Dictionary, player_index : int) -> void:

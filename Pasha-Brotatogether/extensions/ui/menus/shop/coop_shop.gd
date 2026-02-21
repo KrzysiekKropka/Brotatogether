@@ -316,7 +316,10 @@ func _update_shop(shop_dictionary : Dictionary) -> void:
 		Utils.reset_stat_cache(player_index)
 		var player_data = RunData.players_data[player_index]
 		
-		player_data.effects = player_data._deserialize_effects(player_dict["EFFECTS"], {})
+		var reserilaized_effects = {}
+		for key in player_dict["EFFECTS"]:
+			reserilaized_effects[str(key)] = player_dict["EFFECTS"][key]
+		player_data.effects = player_data._deserialize_effects(reserilaized_effects, {})
 		
 		player_data.active_sets.clear()
 		var active_sets_dict = player_dict["ACTIVE_SETS"]

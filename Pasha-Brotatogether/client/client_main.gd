@@ -459,7 +459,9 @@ func on_gold_changed(gold:int)->void :
 
 
 func _on_WaveTimer_timeout() -> void:
-	clean_up_room(false, false, false)
+	var is_final_wave = is_last_wave()
+	_is_run_won = is_final_wave
+	clean_up_room(is_final_wave, false, is_final_wave)
 
 func _on_EndWaveTimer_timeout() -> void:
 	game_controller.send_complete_player_request()
